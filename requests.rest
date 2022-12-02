@@ -1,0 +1,26 @@
+POST http://localhost:3003/user/create
+Content-Type: application/json
+
+{
+    "name" : "Diogo" ,
+    "cpf" : "06853298566",
+    "email" : "diogo@gmail.com",
+    "phone" : "79991306139",
+    "gender" : "MASCULINO",
+    "birth" : "2002/06/29"
+}
+
+####
+GET http://localhost:3003/user/get-all
+
+####
+PUT http://localhost:3003/user/update-phone
+Content-Type: application/json
+
+{
+    "id" : "194f2dec-4ed9-404c-95a1-3dbf295eb482",
+    "phone" : 12998369876
+}
+
+#####
+DELETE http://localhost:3003/user/delete/194f2dec-4ed9-404c-95a1-3dbf295eb482
