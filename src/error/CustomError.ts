@@ -33,3 +33,9 @@ export class InvalidPhone extends CustomError {
     super(400, "Número de telefone inválido!");
   }
 }
+
+export class InvalidGender extends CustomError {
+  constructor() {
+    super(400, "Sexo inválido!");
+  }
+}

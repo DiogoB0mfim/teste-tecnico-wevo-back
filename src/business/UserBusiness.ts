@@ -1,19 +1,22 @@
-import { UserDatabase } from "../data/UserDatabase";
 import {
   CustomError,
   InvalidCPF,
   InvalidEmail,
+  InvalidGender,
   InvalidId,
   InvalidInfos,
   InvalidPhone,
 } from "../error/CustomError";
-import { User, UserDTO } from "../models/User";
+import { GenderOpt, User, UserDTO } from "../models/User";
 import { GenerateId } from "../services/GenerateId";
-
-const generateId = new GenerateId();
-const userDatabase = new UserDatabase();
+import { UserRepository } from "./UserRepository";
 
 export class UserBusiness {
+  constructor(
+    private userDatabase: UserRepository,
+    private generateId: GenerateId
+  ) {}
+
   public async signUp(user: UserDTO) {
     try {
       const { name, cpf, email, phone, gender, birth } = user;
@@ -30,11 +33,17 @@ export class UserBusiness {
         throw new InvalidEmail();
       }
 
-      const id = generateId.generate();
+      const genderUpper = gender.toUpperCase();
+
+      if ( genderUpper !== GenderOpt.FEMININO && genderUpper !== GenderOpt.MASCULINO && genderUpper !== GenderOpt.PREFN) {
+        throw new InvalidGender();
+      }
+
+      const id = this.generateId.generate();
 
       const newUser = new User(id, name, cpf, email, phone, gender, birth);
 
-      await userDatabase.signUp(newUser);
+      await this.userDatabase.signUp(newUser);
     } catch (error: any) {
       throw new CustomError(400, error.message);
     }
@@ -42,7 +51,7 @@ export class UserBusiness {
 
   public async getUsers() {
     try {
-      const result = await userDatabase.getUsers();
+      const result = await this.userDatabase.getUsers();
 
       return result;
     } catch (error: any) {
@@ -60,7 +69,7 @@ export class UserBusiness {
         throw new InvalidPhone();
       }
 
-      await userDatabase.updatePhone(id, phone);
+      await this.userDatabase.updatePhone(id, phone);
     } catch (error: any) {
       throw new CustomError(400, error.message);
     }
@@ -72,7 +81,7 @@ export class UserBusiness {
         throw new InvalidId();
       }
 
-      await userDatabase.delUser(id);
+      await this.userDatabase.delUser(id);
     } catch (error: any) {
       throw new CustomError(400, error.message);
     }

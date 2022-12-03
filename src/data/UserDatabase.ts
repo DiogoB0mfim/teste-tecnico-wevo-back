@@ -1,7 +1,8 @@
+import { UserRepository } from "../business/UserRepository";
 import { User } from "../models/User";
 import BaseDatabase from "./BaseDatabase";
 
-export class UserDatabase extends BaseDatabase {
+export class UserDatabase extends BaseDatabase implements UserRepository {
   public async signUp(user: User) {
     await BaseDatabase.connection("Wevo_users").insert({
       id: user.getId(),
