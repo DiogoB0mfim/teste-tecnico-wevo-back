@@ -49,3 +49,44 @@ describe("Testes em criar usuário", () => {
     }
   });
 });
+
+describe("Testes em deletar usuário", () => {
+  test("Teste 1: Erro para id vazio", async () => {
+    expect.assertions(2);
+
+    try {
+     
+      await userBusiness.delUser("");
+    } catch (error: any) {
+      expect(error).toBeInstanceOf(CustomError);
+      expect(error.message).toBe("Id inválido!");
+    }
+  });
+});
+
+describe("Testes em atualizar número de telefone do usuário", () => {
+  test("Teste 1: Erro para id vazio", async () => {
+    expect.assertions(2);
+
+    try {
+     
+      await userBusiness.updatePhone("","79991306139");
+    } catch (error: any) {
+      expect(error).toBeInstanceOf(CustomError);
+      expect(error.message).toBe("Id inválido!");
+    }
+  });
+
+  test("Teste 2: Erro para telefone com mais de 14 digitos", async () => {
+    expect.assertions(2);
+
+    try {
+     
+      await userBusiness.updatePhone("id","79991306139124567");
+    } catch (error: any) {
+      expect(error).toBeInstanceOf(CustomError);
+      expect(error.message).toBe("Número de telefone inválido!");
+    }
+  });
+});
+
