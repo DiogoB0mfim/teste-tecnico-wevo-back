@@ -39,4 +39,4 @@
 
 * Ativar conexão e criar tabela do arquivo `tables.sql`
 
-* Rodar `npm start` para ligar o servidor ou `npm run test` para rodar os testes.
+* Rodar `npm start` para ligar o servidor ou `npm run test` para rodar os testes
