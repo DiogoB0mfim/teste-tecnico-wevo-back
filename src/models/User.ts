@@ -10,7 +10,7 @@ export interface UserDTO {
     email : string
     phone : string
     gender : GenderOpt
-    birth : Date
+    birth : string
 }
 
 export class User {
@@ -21,7 +21,7 @@ export class User {
         private email : string,
         private phone : string,
         private gender : GenderOpt,
-        private birth : Date
+        private birth : string
     ) {
         this.id = id
         this.name = name
